@@ -20,11 +20,14 @@ public class TxHandler {
      *     values; and false otherwise.
      */
     public boolean isValidTx(Transaction tx) {
-        for (output : tx.outputs) {
-            if(!Arrays.asList(tx.outputs).contains(output)) {
+        ArrayList<Output> outputs = tx.getOutputs();
+        for (Transaction.Output output : outputs) {
+            if(UTXOPool.getTxOutput(output) == null) {
                 return false;
             }
         }
+
+        return true;
     }
 
     /**
